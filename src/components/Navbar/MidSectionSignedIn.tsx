@@ -17,19 +17,15 @@ const links = [
     label: "Home",
   },
   {
-    href: "profile",
-    label: "Profile",
-  },
-  {
-    href: "Anime List",
+    href: "user/animelist",
     label: "Anime List",
   },
   {
-    href: "Manga List",
+    href: "user/mangalist",
     label: "Manga List",
   },
   {
-    href: "Forum",
+    href: "forum",
     label: "Forum",
   },
 ];
