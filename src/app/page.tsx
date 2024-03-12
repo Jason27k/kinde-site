@@ -1,9 +1,9 @@
 "use server";
 
-import EndSection from "@/components/Navbar/EndSection";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
+import { GenreCollection } from "@/lib/constants";
+import Combox from "@/components/Search/Combox";
 
 export default async function Home() {
   const { isAuthenticated } = getKindeServerSession();
@@ -11,5 +11,9 @@ export default async function Home() {
   if (signedIn) {
     redirect("/home");
   }
-  return <div className="flex flex-col bg-">Not Logged In</div>;
+  return (
+    <div className="flex flex-col">
+      <Combox data={GenreCollection} />
+    </div>
+  );
 }

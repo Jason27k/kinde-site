@@ -4,7 +4,7 @@ import NavComponent from "@/components/Navbar/NavComponent";
 import NavComponentSignedIn from "@/components/Navbar/NavComponentsSignedIn";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import "./globals.css";
-
+import { Providers } from "./providers";
 import { cn } from "@/lib/utils";
 
 const overpass = Overpass({
@@ -33,7 +33,7 @@ export default async function RootLayout({
         )}
       >
         {signedIn ? <NavComponentSignedIn /> : <NavComponent />}
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

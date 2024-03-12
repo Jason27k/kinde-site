@@ -52,7 +52,7 @@ const MidSectionSignedIn = () => {
           <NavigationMenuItem>
             <NavigationMenuTrigger>Browse</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <div className="gap-2 w-[270px] flex flex-col h-[200px]">
+              <div className="gap-2 w-[270px] flex flex-col h-[200px] overflow-y-scroll">
                 <div className="mt-2 h-1/3 px-5 pt-4">
                   <DropSection
                     baseUrl="/search/anime"

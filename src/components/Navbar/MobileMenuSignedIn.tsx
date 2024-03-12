@@ -64,7 +64,7 @@ const MobileMenuSignedIn = () => {
             <h1 className="text-lg">Settings</h1>
           </Link>
           <Link
-            href="/search"
+            href="/search/anime"
             className="flex items-center gap-4 group text-muted-foreground hover:text-black"
           >
             <Search size={24} />

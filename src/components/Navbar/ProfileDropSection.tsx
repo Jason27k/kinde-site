@@ -14,7 +14,7 @@ const ProfileDropSection = ({ baseUrl, title, children }: Props) => {
           className="text-muted-foreground hover:text-gray-800 row-span-full flex gap-4 group-hover:text-gray-800"
         >
           {children}
-          <p className="">{title}</p>
+          <p className="text-center">{title}</p>
         </Link>
       </div>
     </div>

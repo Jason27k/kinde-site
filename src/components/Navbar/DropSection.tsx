@@ -27,10 +27,10 @@ const DropSection = ({ baseUrl, title, links, children }: Props) => {
             {links.map(({ href, label }) => (
               <Link
                 href={`${baseUrl}/${href}`}
-                className="hover:text-gray-800"
+                className="hover:text-gray-800 text-center text-nowrap"
                 key={label}
               >
-                {label}
+                <p className="text-center text-nowrap">{label}</p>
               </Link>
             ))}
           </div>

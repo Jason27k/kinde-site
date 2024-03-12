@@ -22,7 +22,7 @@ const MobileMenu = () => {
       <SheetContent>
         <div className="flex flex-col mt-10 items-start justify-center gap-4 px-4">
           <Link
-            href="/search"
+            href="/search/anime"
             className="flex items-center gap-4 group text-muted-foreground hover:text-black"
           >
             <Search size={24} />
