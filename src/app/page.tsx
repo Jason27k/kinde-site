@@ -2,8 +2,7 @@
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import { GenreCollection } from "@/lib/constants";
-import Combox from "@/components/Search/Combox";
+import SearchFilters from "@/components/Search/SearchFilters";
 
 export default async function Home() {
   const { isAuthenticated } = getKindeServerSession();
@@ -12,8 +11,8 @@ export default async function Home() {
     redirect("/home");
   }
   return (
-    <div className="flex flex-col">
-      <Combox data={GenreCollection} />
+    <div className="flex">
+      <SearchFilters currentCategory="Anime" />
     </div>
   );
 }
