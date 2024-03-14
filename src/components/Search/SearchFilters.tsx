@@ -28,6 +28,7 @@ import {
   countries,
   sourceMaterial,
 } from "@/lib/constants";
+import { Card, CardFooter, Image } from "@nextui-org/react";
 
 interface ComboWithClassesProps {
   data: string[];
@@ -129,6 +130,21 @@ const SearchFilters = ({ currentCategory }: Props) => {
           </div>
         </div>
       )}
+      <div className="">
+        <h1>Trending Now</h1>
+        <Card className="h-96">
+          <Image
+            src="/image.jpg"
+            alt="Image"
+            className="object-center"
+            height={205}
+            width={144}
+          />
+          <CardFooter>
+            <h1>Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e 3rd </h1>
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   );
 };
