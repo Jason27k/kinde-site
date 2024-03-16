@@ -1,7 +1,11 @@
-import React from "react";
+import SearchFilters from "@/components/Search/SearchFilters";
 
 const page = () => {
-  return <div>page</div>;
+  return (
+    <div>
+      <SearchFilters currentCategory="Manga" />
+    </div>
+  );
 };
 
 export default page;

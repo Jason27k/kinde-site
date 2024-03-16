@@ -199,3 +199,58 @@ export const searchCategories = [
   "Studios",
   "Users",
 ];
+
+export const collections = {
+  Genre: {
+    title: "Genre",
+    collection: GenreCollection,
+  },
+  AnimeStatus: {
+    title: "Airing Status",
+    collection: AnimeStatusCollection,
+  },
+  MangaStatus: {
+    title: "Release Status",
+    collection: MangaStatusCollection,
+  },
+  Season: {
+    title: "Season",
+    collection: SeasonCollection,
+  },
+  Year: {
+    title: "Year",
+    collection: YearCollection,
+  },
+  AnimeFormat: {
+    title: "Format",
+    collection: AnimeFormats,
+  },
+  MangaFormat: {
+    title: "Format",
+    collection: MangaFormats,
+  },
+  Countries: {
+    title: "Country Of Origin",
+    collection: countries,
+  },
+  StreamingServices: {
+    title: "Streaming Service",
+    collection: streamingServices,
+  },
+  ReadableOn: {
+    title: "Read On",
+    collection: readableOn,
+  },
+  SourceMaterial: {
+    title: "Source Material",
+    collection: sourceMaterial,
+  },
+  Sort: {
+    title: "Sort",
+    collection: sortCollection,
+  },
+  SearchCategories: {
+    title: "Category",
+    collection: searchCategories,
+  },
+};
