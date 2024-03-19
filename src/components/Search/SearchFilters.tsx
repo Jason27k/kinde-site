@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 import SearchResults from "./SearchResults";
 import SearchInputs from "./SearchInputs";
 import SearchSelect from "./SearchSelect";
+import SearchInputsRow from "./SearchInputsRow";
+import SearchDropDown from "./SearchDropDown";
 
 interface Props {
   currentCategory: string;
@@ -16,27 +18,6 @@ interface Props {
 
 const SearchFilters = ({ currentCategory }: Props) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
-  const [genre, setGenre] = useState<string | null>(null);
-  const [year, setYear] = useState<string | null>(null);
-  const [season, setSeason] = useState<string | null>(null);
-  const [format, setFormat] = useState<string | null>(null);
-  const [sort, setSort] = useState<string | null>(null);
-  const [status, setStatus] = useState<string | null>(null);
-  const [service, setService] = useState<string | null>(null);
-  const [country, setCountry] = useState<string | null>(null);
-  const [source, setSource] = useState<string | null>(null);
-
-  const setters = {
-    genre: setGenre,
-    year: setYear,
-    season: setSeason,
-    format: setFormat,
-    sort: setSort,
-    status: setStatus,
-    service: setService,
-    country: setCountry,
-    source: setSource,
-  };
 
   const onClick = () => {
     setIsClicked((isClicked) => (isClicked = !isClicked));
@@ -45,12 +26,12 @@ const SearchFilters = ({ currentCategory }: Props) => {
   const page = currentCategory.toLowerCase();
 
   return (
-    <div className="flex flex-col gap-8 overflow-scroll no-scrollbar min-w-[405px] max-w-[80vw] mx-auto">
+    <div className="flex flex-col gap-4 overflow-scroll no-scrollbar min-w-[405px] w-screen md:w-[90vw] lg:w-[85vw] xl:w-[75vw] max-w-[1200px] mx-auto p-4">
       <div className="flex items center gap-2">
         <h1 className="flex items-center">Browse</h1>
         <SearchSelect currentCategory={currentCategory} />
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 md:hidden">
         <Input
           isClearable
           placeholder="Search"
@@ -60,26 +41,42 @@ const SearchFilters = ({ currentCategory }: Props) => {
         <Button
           onClick={onClick}
           className={cn(
-            "bg-white shadow-lg",
+            "bg-[#f4f4f5] shadow-lg",
             `${isClicked ? "text-blue-600" : "text-black"}`
           )}
         >
           <SlidersHorizontal size={24} />
         </Button>
       </div>
-      <div className="block md:hidden">
-        {isClicked && <SearchInputs page={page} setStates={setters} />}
+      <div className="block md:hidden overflow-y-hidden">
+        {isClicked && <SearchInputs page={page} />}
       </div>
-      <SearchResults
-        title="Trending"
-        page={"/search/" + page + "/trending"}
-        data={mockData}
-      />
-      <SearchResults
-        title="Top 100"
-        page={"/search/" + page + "/top-100"}
-        data={mockData}
-      />
+      <div className="hidden md:flex gap-2 items-center justify-evenly">
+        <Input
+          isClearable
+          label="Search"
+          labelPlacement="outside"
+          startContent={<Search />}
+        />
+        <SearchInputsRow
+          page={page}
+          className="md:w-[120px] lg:w-[150px] xl:w-[170px]"
+        />
+
+        <SearchDropDown onClick={onClick} isClicked={isClicked} page={page} />
+      </div>
+      <div className="flex flex-col gap-4">
+        <SearchResults
+          title="Trending"
+          page={"/search/" + page + "/trending"}
+          data={mockData}
+        />
+        <SearchResults
+          title="Top 100"
+          page={"/search/" + page + "/top-100"}
+          data={mockData}
+        />
+      </div>
     </div>
   );
 };

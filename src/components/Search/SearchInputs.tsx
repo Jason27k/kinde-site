@@ -3,10 +3,9 @@ import { collections } from "@/lib/constants";
 
 interface Props {
   page: string;
-  setStates: any;
 }
 
-const SearchInputs = ({ page, setStates }: Props) => {
+const SearchInputs = ({ page }: Props) => {
   const format =
     page === "anime" ? collections.AnimeFormat : collections.MangaFormat;
   const status =
@@ -18,7 +17,6 @@ const SearchInputs = ({ page, setStates }: Props) => {
     { name: "year", data: collections.Year },
     { name: "season", data: collections.Season },
     { name: "format", data: format },
-    { name: "sort", data: collections.Sort },
     { name: "status", data: status },
     { name: "service", data: service },
     { name: "country", data: collections.Countries },
@@ -32,7 +30,6 @@ const SearchInputs = ({ page, setStates }: Props) => {
             <ComboWithClasses
               data={filter.data.collection}
               label={filter.data.title}
-              setState={setStates[filter.name]}
             />
           </div>
         ))}

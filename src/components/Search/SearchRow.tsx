@@ -17,16 +17,26 @@ const SearchRow = ({ data }: SearchRowProps) => {
   }
   return (
     <div className="w-full">
-      <div className="flex flex-wrap justify-evenly sm:justify-between ">
+      <div className="w-full grid grid-cols-2 xs:grid-cols-3 sm:hidden place-items-center gap-2 ">
         <SearchCard {...data[0]} />
         <SearchCard {...data[1]} />
         <SearchCard {...data[2]} />
-        <SearchCard
-          {...data[3]}
-          className="block md:hidden lg:block xl:block"
-        />
-        <SearchCard {...data[4]} className="block md:hidden xl:block" />
-        <SearchCard {...data[5]} className="block md:hidden" />
+        <SearchCard {...data[3]} />
+        <SearchCard {...data[4]} />
+        <SearchCard {...data[5]} />
+      </div>
+      <div className="hidden sm:flex md:hidden justify-start place-items-center gap-2 ">
+        <SearchCard {...data[0]} />
+        <SearchCard {...data[1]} />
+        <SearchCard {...data[2]} />
+        <SearchCard {...data[3]} />
+      </div>
+      <div className="hidden md:flex justify-start place-items-center gap-2 ">
+        <SearchCard {...data[0]} />
+        <SearchCard {...data[1]} />
+        <SearchCard {...data[2]} />
+        <SearchCard {...data[3]} />
+        <SearchCard {...data[4]} />
       </div>
     </div>
   );

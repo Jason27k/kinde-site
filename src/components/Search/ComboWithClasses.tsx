@@ -1,19 +1,23 @@
 import Combox from "./Combox";
+import { cn } from "@/lib/utils";
 
 interface ComboWithClassesProps {
   data: string[];
   label: string;
-  setState: React.Dispatch<React.SetStateAction<string | null>>;
+  className?: string;
 }
 
-const ComboWithClasses = ({ data, label, setState }: ComboWithClassesProps) => {
+const ComboWithClasses = ({
+  data,
+  label,
+  className,
+}: ComboWithClassesProps) => {
   return (
     <Combox
       data={data}
       label={label}
       labelPlacement="outside"
-      className="snap-start"
-      setState={setState}
+      className={cn("snap-start shadow-none", className)}
     />
   );
 };
