@@ -8,7 +8,7 @@ interface Props {
 
 const DropSection = ({ baseUrl, title, links, children }: Props) => {
   return (
-    <div>
+    <div className="">
       <div className="grid gap-3 grid-cols-[.2fr_1fr] group">
         <Link
           href={baseUrl}

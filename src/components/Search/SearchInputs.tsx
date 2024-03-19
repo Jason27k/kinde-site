@@ -12,25 +12,36 @@ const SearchInputs = ({ page }: Props) => {
     page === "anime" ? collections.AnimeStatus : collections.MangaStatus;
   const service =
     page === "anime" ? collections.StreamingServices : collections.ReadableOn;
-  const filters = [
-    { name: "genre", data: collections.Genre },
-    { name: "year", data: collections.Year },
-    { name: "season", data: collections.Season },
-    { name: "format", data: format },
-    { name: "status", data: status },
-    { name: "service", data: service },
-    { name: "country", data: collections.Countries },
-    { name: "source", data: collections.SourceMaterial },
-  ];
+  let filters = [];
+  if (page === "anime") {
+    filters = [
+      collections.Genre,
+      collections.Year,
+      collections.Season,
+      format,
+      status,
+      service,
+      collections.Countries,
+      collections.SourceMaterial,
+    ];
+  } else {
+    filters = [
+      collections.Genre,
+      collections.Year,
+      format,
+      status,
+      service,
+      collections.Countries,
+      collections.SourceMaterial,
+    ];
+  }
+
   return (
     <div className="w-screen whitespace-nowrap overflow-x-scroll no-scrollbar snap-x">
       <div className="flex gap-8 w-max">
         {filters.map((filter) => (
-          <div key={filter.name}>
-            <ComboWithClasses
-              data={filter.data.collection}
-              label={filter.data.title}
-            />
+          <div key={filter.title}>
+            <ComboWithClasses data={filter.collection} label={filter.title} />
           </div>
         ))}
       </div>

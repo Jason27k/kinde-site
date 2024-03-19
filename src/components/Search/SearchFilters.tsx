@@ -27,7 +27,7 @@ const SearchFilters = ({ currentCategory }: Props) => {
 
   return (
     <div className="flex flex-col gap-4 overflow-scroll no-scrollbar min-w-[405px] w-screen md:w-[90vw] lg:w-[85vw] xl:w-[75vw] max-w-[1200px] mx-auto p-4">
-      <div className="flex items center gap-2">
+      <div className="flex items center gap-2 md:hidden">
         <h1 className="flex items-center">Browse</h1>
         <SearchSelect currentCategory={currentCategory} />
       </div>
@@ -52,18 +52,26 @@ const SearchFilters = ({ currentCategory }: Props) => {
         {isClicked && <SearchInputs page={page} />}
       </div>
       <div className="hidden md:flex gap-2 items-center justify-evenly">
-        <Input
-          isClearable
-          label="Search"
-          labelPlacement="outside"
-          startContent={<Search />}
-        />
+        <div className="mt-4">
+          <Input
+            isClearable
+            label="Search"
+            labelPlacement="outside"
+            startContent={<Search />}
+          />
+        </div>
+
         <SearchInputsRow
           page={page}
-          className="md:w-[120px] lg:w-[150px] xl:w-[170px]"
+          className="md:w-[120px] lg:w-[150px] xl:w-[170px] mt-4"
         />
 
-        <SearchDropDown onClick={onClick} isClicked={isClicked} page={page} />
+        <SearchDropDown
+          onClick={onClick}
+          isClicked={isClicked}
+          page={page}
+          className="mt-4"
+        />
       </div>
       <div className="flex flex-col gap-4">
         <SearchResults

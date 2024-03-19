@@ -210,7 +210,7 @@ export const collections = {
     collection: AnimeStatusCollection,
   },
   MangaStatus: {
-    title: "Release Status",
+    title: "Publishing Status",
     collection: MangaStatusCollection,
   },
   Season: {
@@ -234,11 +234,11 @@ export const collections = {
     collection: countries,
   },
   StreamingServices: {
-    title: "Streaming Service",
+    title: "Streaming On",
     collection: streamingServices,
   },
   ReadableOn: {
-    title: "Read On",
+    title: "Readable On",
     collection: readableOn,
   },
   SourceMaterial: {

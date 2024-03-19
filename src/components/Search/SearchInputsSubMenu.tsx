@@ -12,18 +12,18 @@ const SearchInputsSubRow = ({ page, className }: Props) => {
   const service =
     page === "anime" ? collections.StreamingServices : collections.ReadableOn;
   const subFilters = [
-    { name: "status", data: status },
-    { name: "service", data: service },
-    { name: "country", data: collections.Countries },
-    { name: "source", data: collections.SourceMaterial },
+    status,
+    service,
+    collections.Countries,
+    collections.SourceMaterial,
   ];
   return (
     <>
       {subFilters.map((filter) => (
-        <div key={filter.name}>
+        <div key={filter.title}>
           <ComboWithClasses
-            data={filter.data.collection}
-            label={filter.data.title}
+            data={filter.collection}
+            label={filter.title}
             className={className}
           />
         </div>

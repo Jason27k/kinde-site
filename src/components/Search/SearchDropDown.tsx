@@ -20,6 +20,7 @@ interface Props {
   isClicked: boolean;
   onClick: any;
   page: string;
+  className?: string;
 }
 
 const MIN_YEAR = 1990;
@@ -29,7 +30,7 @@ const MAX_EPISODES = 150;
 const MIN_DURATION = 0;
 const MAX_DURATION = 170;
 
-const SearchDropDown = ({ onClick, isClicked, page }: Props) => {
+const SearchDropDown = ({ onClick, isClicked, page, className }: Props) => {
   const router = useRouter();
   const pathName = usePathname();
   const searchParams = useSearchParams();
@@ -46,15 +47,13 @@ const SearchDropDown = ({ onClick, isClicked, page }: Props) => {
     duration.length == 2
       ? [+episodes[0], +episodes[1]]
       : [MIN_DURATION, MAX_DURATION];
-  const status =
-    page === "anime" ? collections.AnimeStatus : collections.MangaStatus;
-  const service =
-    page === "anime" ? collections.StreamingServices : collections.ReadableOn;
+  const status = collections.AnimeStatus;
+  const service = collections.StreamingServices;
   const subFilters = [
-    { name: "status", data: status },
-    { name: "service", data: service },
-    { name: "country", data: collections.Countries },
-    { name: "source", data: collections.SourceMaterial },
+    status,
+    service,
+    collections.Countries,
+    collections.SourceMaterial,
   ];
 
   const onChangeYear = (value: number[]) => {
@@ -63,26 +62,24 @@ const SearchDropDown = ({ onClick, isClicked, page }: Props) => {
   };
 
   const createQueryString = (name: string, value: string) => {
-    console.log("Called");
     const params = new URLSearchParams(searchParams.toString());
-    console.log(params);
     if (params.has(name)) {
-      console.log("HAS");
       params.delete(name);
     }
     if (value == null) {
       params.delete(name);
+    } else {
+      params.set(name, value);
     }
-    params.set(name, value);
 
     return params.toString();
   };
 
   return (
-    <div className="relative">
+    <div className={cn("relative", className)}>
       <Dropdown
         closeOnSelect={false}
-        className="absolute -right-5 w-[737px] h-[200px]"
+        className="absolute -right-5 w-[737px] h-[200px] hidden md:block"
         onOpenChange={onClick}
       >
         <DropdownTrigger>
@@ -98,17 +95,24 @@ const SearchDropDown = ({ onClick, isClicked, page }: Props) => {
         <DropdownMenu className="w-full px-5 my-5">
           <DropdownItem variant="light" className="cursor-default">
             <div className="flex gap-6 justify-start mb-5">
-              {subFilters.map(({ data, name }) => (
+              {subFilters.map((data) => (
                 <Autocomplete
                   onSelectionChange={(value) =>
                     router.push(
-                      `${pathName}?${createQueryString(name, value as string)}`
+                      `${pathName}?${createQueryString(
+                        data.title.toLowerCase(),
+                        value as string
+                      )}`
                     )
                   }
-                  key={name}
+                  isClearable
+                  key={data.title}
                   label={data.title}
                   labelPlacement="outside"
                   placeholder="Any"
+                  selectedKey={
+                    searchParams.get(data.title.toLowerCase()) || undefined
+                  }
                 >
                   {data.collection.map((value) => (
                     <AutocompleteItem value={value} key={value}>

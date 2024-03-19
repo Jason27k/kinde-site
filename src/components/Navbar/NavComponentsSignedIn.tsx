@@ -18,13 +18,13 @@ const NavComponentSignedIn = () => {
             <Image src="/logo.svg" alt="Ani Sekai" width={40} height={40} />
             <h1 className="text-2xl font-bold hidden lg:block">Ani Sekai</h1>
           </Link>
-          <div className="hidden md:flex justify-center">
+          <div className="hidden md:flex justify-center z-50">
             <MidSectionSignedIn />
           </div>
-          <div className="hidden md:flex justify-center">
+          <div className="hidden md:flex justify-center z-50">
             <EndSectionSignedIn />
           </div>
-          <div className="block md:hidden">
+          <div className="block md:hidden z-50">
             <MobileMenuSignedIn />
           </div>
         </div>
