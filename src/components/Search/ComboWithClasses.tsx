@@ -9,6 +9,7 @@ interface ComboWithClassesProps {
   inputValue?: string | null;
   onChange?: (value: Key, title: string) => void;
 }
+
 const ComboWithClasses = ({
   data,
   label,

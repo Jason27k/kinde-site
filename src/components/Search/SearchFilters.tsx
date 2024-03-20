@@ -1,16 +1,22 @@
 "use client";
 
 import { Input } from "@nextui-org/react";
-import { Search, SlidersHorizontal } from "lucide-react";
+import { Hash, Search, SlidersHorizontal, Smile } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { mockData } from "@/lib/mock";
+import { mockData, rankedData } from "@/lib/mock";
 import { cn } from "@/lib/utils";
 import SearchResults from "./SearchResults";
 import SearchInputs from "./SearchInputs";
 import SearchSelect from "./SearchSelect";
 import SearchInputsRow from "./SearchInputsRow";
 import SearchDropDown from "./SearchDropDown";
+import MangaSearchDropDown from "./MangaSearchDropDown";
+import SearchRow from "./SearchRow";
+import HorizontalCard from "./HorizontalCard";
+import Image from "next/image";
+import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
+import HorizontalSearchRow from "./HorizontalSearchRow";
 
 interface Props {
   currentCategory: string;
@@ -66,24 +72,43 @@ const SearchFilters = ({ currentCategory }: Props) => {
           className="md:w-[120px] lg:w-[150px] xl:w-[170px] mt-4"
         />
 
-        <SearchDropDown
-          onClick={onClick}
-          isClicked={isClicked}
-          page={page}
-          className="mt-4"
-        />
+        {currentCategory === "Anime" ? (
+          <SearchDropDown
+            onClick={onClick}
+            isClicked={isClicked}
+            page={page}
+            className="mt-4"
+          />
+        ) : (
+          <MangaSearchDropDown
+            onClick={onClick}
+            isClicked={isClicked}
+            page={page}
+            className="mt-4"
+          />
+        )}
       </div>
       <div className="flex flex-col gap-4">
+        <SearchResults title="Trending" page={"/search/" + page + "/trending"}>
+          <SearchRow data={mockData} />
+        </SearchResults>
+        <SearchResults title="Top 100" page={"/search/" + page + "/top-100"}>
+          <SearchRow data={mockData} />
+        </SearchResults>
+      </div>
+      <div className="hidden md:block">
         <SearchResults
-          title="Trending"
-          page={"/search/" + page + "/trending"}
-          data={mockData}
-        />
-        <SearchResults
-          title="Top 100"
-          page={"/search/" + page + "/top-100"}
-          data={mockData}
-        />
+          title={`Top 100 ${currentCategory}`}
+          page={`/search/${page}/top-100`}
+          className="hidden md:block"
+        >
+          <div className="hidden lg:flex flex-col gap-6">
+            <HorizontalSearchRow data={rankedData} ranked />
+          </div>
+          <div className="hidden md:block lg:hidden">
+            <SearchRow data={rankedData} ranked />
+          </div>
+        </SearchResults>
       </div>
     </div>
   );

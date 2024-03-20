@@ -25,32 +25,36 @@ interface Props {
 
 const MIN_YEAR = 1990;
 const MAX_YEAR = 2025;
-const MIN_EPISODES = 0;
-const MAX_EPISODES = 150;
-const MIN_DURATION = 0;
-const MAX_DURATION = 170;
+const MIN_CHAPTERS = 0;
+const MAX_CHAPTERS = 500;
+const MIN_VOLUMES = 0;
+const MAX_VOLUMES = 50;
 
-const SearchDropDown = ({ onClick, isClicked, page, className }: Props) => {
+const MangaSearchDropDown = ({
+  onClick,
+  isClicked,
+  page,
+  className,
+}: Props) => {
   const router = useRouter();
   const pathName = usePathname();
   const searchParams = useSearchParams();
   const years = searchParams.getAll("year-range");
   const yearRange =
     years.length == 2 ? [+years[0], +years[1]] : [MIN_YEAR, MAX_YEAR];
-  const episodes = searchParams.getAll("episodes");
-  const episodeRange =
-    episodes.length == 2
-      ? [+episodes[0], +episodes[1]]
-      : [MIN_EPISODES, MAX_EPISODES];
-  const duration = searchParams.getAll("duration");
-  const durationRange =
-    duration.length == 2
-      ? [+episodes[0], +episodes[1]]
-      : [MIN_DURATION, MAX_DURATION];
+  const chapters = searchParams.getAll("chapters");
+  const chaptersRange =
+    chapters.length == 2
+      ? [+chapters[0], +chapters[1]]
+      : [MIN_CHAPTERS, MAX_CHAPTERS];
+  const volumes = searchParams.getAll("duration");
+  const volumesRange =
+    volumes.length == 2
+      ? [+volumes[0], +volumes[1]]
+      : [MIN_VOLUMES, MAX_VOLUMES];
   const subFilters = [
-    collections.AnimeStatus,
-    collections.StreamingServices,
-    collections.Countries,
+    collections.Year,
+    collections.ReadableOn,
     collections.SourceMaterial,
   ];
 
@@ -136,18 +140,18 @@ const SearchDropDown = ({ onClick, isClicked, page, className }: Props) => {
               <Slider
                 label="Episodes"
                 step={1}
-                minValue={MIN_EPISODES}
-                maxValue={MAX_EPISODES}
-                defaultValue={[episodeRange[0], episodeRange[1]]}
+                minValue={MIN_CHAPTERS}
+                maxValue={MAX_CHAPTERS}
+                defaultValue={[chaptersRange[0], chaptersRange[1]]}
                 formatOptions={{ useGrouping: false }}
                 className="w-[180px]"
               />
               <Slider
                 label="Duration"
                 step={1}
-                minValue={MIN_DURATION}
-                maxValue={MAX_DURATION}
-                defaultValue={[durationRange[0], durationRange[1]]}
+                minValue={MIN_VOLUMES}
+                maxValue={MAX_VOLUMES}
+                defaultValue={[volumesRange[0], volumesRange[1]]}
                 formatOptions={{ useGrouping: false }}
                 className="w-[180px]"
               />
@@ -159,4 +163,4 @@ const SearchDropDown = ({ onClick, isClicked, page, className }: Props) => {
   );
 };
 
-export default SearchDropDown;
+export default MangaSearchDropDown;
