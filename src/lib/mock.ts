@@ -17,7 +17,7 @@ export const mockData = [
     percentage: "92%",
     studio: "Studio Pierrot",
     type: "TV Show",
-    genres: ["action", "fantasy"],
+    genres: ["action", "fantasy", "comedy", "romance"],
   },
   {
     image: "/image.jpg",
@@ -71,7 +71,7 @@ export const rankedData = [
     percentage: "88%",
     studio: "Toei Animation",
     type: "TV Show",
-    genres: ["action", "adventure", "comedy"],
+    genres: ["Action", "Adventure", "Comedy", "slice of life", "drama"],
   },
   {
     image: "/image.jpg",
@@ -93,7 +93,7 @@ export const rankedData = [
     percentage: "80%",
     studio: "Bones",
     type: "TV Show",
-    genres: ["drama", "mystery"],
+    genres: ["action", "adventure", "comedy", "drama", "fantasy", "test"],
   },
   {
     image: "/image.jpg",

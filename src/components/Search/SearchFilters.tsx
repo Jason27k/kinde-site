@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@nextui-org/react";
-import { Hash, Search, SlidersHorizontal, Smile } from "lucide-react";
+import { Search, SlidersHorizontal, Smile } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { mockData, rankedData } from "@/lib/mock";
@@ -13,9 +13,6 @@ import SearchInputsRow from "./SearchInputsRow";
 import SearchDropDown from "./SearchDropDown";
 import MangaSearchDropDown from "./MangaSearchDropDown";
 import SearchRow from "./SearchRow";
-import HorizontalCard from "./HorizontalCard";
-import Image from "next/image";
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import HorizontalSearchRow from "./HorizontalSearchRow";
 
 interface Props {
@@ -103,7 +100,7 @@ const SearchFilters = ({ currentCategory }: Props) => {
           className="hidden md:block"
         >
           <div className="hidden lg:flex flex-col gap-6">
-            <HorizontalSearchRow data={rankedData} ranked />
+            <HorizontalSearchRow data={rankedData} ranked page={page} />
           </div>
           <div className="hidden md:block lg:hidden">
             <SearchRow data={rankedData} ranked />

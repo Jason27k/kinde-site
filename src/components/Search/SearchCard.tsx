@@ -83,7 +83,7 @@ const SearchCard = ({
                     <div className="">{type}</div>
                   </div>
                   <div className="flex">
-                    {genres.map((genre) => (
+                    {genres.slice(0, 3).map((genre) => (
                       <div
                         className="rounded-2xl bg-orange-200 px-4"
                         key={genre}

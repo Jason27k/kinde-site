@@ -17,7 +17,7 @@ const SearchRow = ({ data, ranked }: SearchRowProps) => {
                 key={index}
                 {...item}
                 ranked={ranked}
-                className="max-w-[180px] max-h-[265px] w"
+                className="max-w-[180px] max-h-[265px]"
               />
             );
           })}
@@ -27,26 +27,17 @@ const SearchRow = ({ data, ranked }: SearchRowProps) => {
   }
   return (
     <div className="w-full">
-      <div className="w-full grid grid-cols-2 xs:grid-cols-3 sm:hidden place-items-center gap-3 ">
+      <div className="w-full grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
         <SearchCard {...data[0]} ranked={ranked} />
         <SearchCard {...data[1]} ranked={ranked} />
         <SearchCard {...data[2]} ranked={ranked} />
-        <SearchCard {...data[3]} ranked={ranked} />
-        <SearchCard {...data[4]} ranked={ranked} />
-        <SearchCard {...data[5]} ranked={ranked} />
-      </div>
-      <div className="hidden sm:flex md:hidden justify-start place-items-center gap-3 ">
-        <SearchCard {...data[0]} ranked={ranked} />
-        <SearchCard {...data[1]} ranked={ranked} />
-        <SearchCard {...data[2]} ranked={ranked} />
-        <SearchCard {...data[3]} ranked={ranked} />
-      </div>
-      <div className="hidden md:flex justify-start place-items-center gap-3 ">
-        <SearchCard {...data[0]} ranked={ranked} />
-        <SearchCard {...data[1]} ranked={ranked} />
-        <SearchCard {...data[2]} ranked={ranked} />
-        <SearchCard {...data[3]} ranked={ranked} />
-        <SearchCard {...data[4]} ranked={ranked} />
+        <SearchCard {...data[3]} ranked={ranked} className="flex" />
+        <SearchCard
+          {...data[4]}
+          ranked={ranked}
+          className="flex sm:hidden md:flex"
+        />
+        <SearchCard {...data[5]} ranked={ranked} className="flex sm:hidden" />
       </div>
     </div>
   );

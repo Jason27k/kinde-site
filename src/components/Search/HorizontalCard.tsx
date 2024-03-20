@@ -1,6 +1,7 @@
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import Image from "next/image";
 import { Smile, Hash } from "lucide-react";
+import Link from "next/link";
 
 interface Props {
   image: string;
@@ -15,6 +16,7 @@ interface Props {
   nextEpisode: string;
   ranked?: boolean;
   rank?: number;
+  page: string;
 }
 
 const HorizontalCard = ({
@@ -30,10 +32,11 @@ const HorizontalCard = ({
   nextEpisode,
   ranked,
   rank,
+  page,
 }: Props) => {
   return (
     <div className="hidden lg:flex w-full h-[80px] gap-2">
-      <div className="flex items-center w-[50px] h-50px] justify-center">
+      <div className="flex items-center w-[50px] h-50px] justify-center font-bold">
         {ranked && (
           <>
             <Hash size={12} />
@@ -46,13 +49,18 @@ const HorizontalCard = ({
           <CardBody>
             <div className="flex items-center justify-start gap-3">
               <Image src={image} alt={alt} width={48} height={60} />
-              <div className="grid grid-cols-2 w-full">
+              <div className="grid grid-cols-2 w-full gap-4">
                 <div className="flex flex-col justify-center items-start gap-1">
                   <h3>{title}</h3>
-                  <div className="flex gap-2">
-                    {genres.map((genre) => (
-                      <div className="bg-[#ef5d5d] rounded-lg px-3" key={genre}>
-                        {genre}
+                  <div className="flex gap-2 max-h-[24px] overflow-hidden">
+                    {genres.slice(0, 4).map((genre) => (
+                      <div
+                        className="bg-[#ef5d5d] rounded-lg px-3 py-[2px]"
+                        key={genre}
+                      >
+                        <Link href={`/search/${page}?genre=${genre}`}>
+                          <p className="text-[12px]">{genre.toLowerCase()}</p>
+                        </Link>
                       </div>
                     ))}
                   </div>

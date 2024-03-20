@@ -5,9 +5,10 @@ import { CardProps } from "./SearchCard";
 interface SearchRowProps {
   data: CardProps[];
   ranked?: boolean;
+  page: string;
 }
 
-const HorizontalSearchRow = ({ data, ranked }: SearchRowProps) => {
+const HorizontalSearchRow = ({ data, ranked, page }: SearchRowProps) => {
   return (
     <>
       {data.map((item, index) => {
@@ -19,6 +20,7 @@ const HorizontalSearchRow = ({ data, ranked }: SearchRowProps) => {
             userCount="37260 users"
             duration="1 hr 51 min"
             start="Winter 2021"
+            page={page}
           />
         );
       })}
