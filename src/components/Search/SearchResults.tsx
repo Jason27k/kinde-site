@@ -11,7 +11,7 @@ const SearchResults = ({ title, page, children, className }: Props) => {
   return (
     <div className={className}>
       <div className="flex justify-between">
-        <h1 className="text-2xl">{title}</h1>
+        <h1 className="text-2xl">{title.toUpperCase()}</h1>
         <Link href={page}>View All</Link>
       </div>
       {children}

@@ -1,8 +1,9 @@
+"use client";
 import SearchCard from "./SearchCard";
-import { CardProps } from "./SearchCard";
+import { Anime } from "@/app/actions";
 
 interface SearchRowProps {
-  data: CardProps[];
+  data: Anime[];
   ranked?: boolean;
 }
 

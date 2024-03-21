@@ -4,7 +4,6 @@ import { Input } from "@nextui-org/react";
 import { Search, SlidersHorizontal, Smile } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { mockData, rankedData } from "@/lib/mock";
 import { cn } from "@/lib/utils";
 import SearchResults from "./SearchResults";
 import SearchInputs from "./SearchInputs";
@@ -12,14 +11,16 @@ import SearchSelect from "./SearchSelect";
 import SearchInputsRow from "./SearchInputsRow";
 import SearchDropDown from "./SearchDropDown";
 import MangaSearchDropDown from "./MangaSearchDropDown";
+import { Anime } from "@/app/actions";
 import SearchRow from "./SearchRow";
 import HorizontalSearchRow from "./HorizontalSearchRow";
 
 interface Props {
   currentCategory: string;
+  data: Anime[][];
 }
 
-const SearchFilters = ({ currentCategory }: Props) => {
+const SearchFilters = ({ currentCategory, data }: Props) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const onClick = () => {
@@ -87,11 +88,30 @@ const SearchFilters = ({ currentCategory }: Props) => {
       </div>
       <div className="flex flex-col gap-4">
         <SearchResults title="Trending" page={"/search/" + page + "/trending"}>
-          <SearchRow data={mockData} />
+          <SearchRow data={data[0]} />
         </SearchResults>
-        <SearchResults title="Top 100" page={"/search/" + page + "/top-100"}>
-          <SearchRow data={mockData} />
-        </SearchResults>
+        {currentCategory === "Anime" && (
+          <>
+            <SearchResults
+              title="Popular This Season"
+              page={"/search/" + page + "/this-season"}
+            >
+              <SearchRow data={data[1]} />
+            </SearchResults>
+            <SearchResults
+              title="Upcoming Next Season"
+              page={"/search/" + page + "/next-season"}
+            >
+              <SearchRow data={data[2]} />
+            </SearchResults>
+            <SearchResults
+              title="All Time Popular"
+              page={"/search/" + page + "/popular"}
+            >
+              <SearchRow data={data[3]} />
+            </SearchResults>
+          </>
+        )}
       </div>
       <div className="hidden md:block">
         <SearchResults
@@ -100,10 +120,10 @@ const SearchFilters = ({ currentCategory }: Props) => {
           className="hidden md:block"
         >
           <div className="hidden lg:flex flex-col gap-6">
-            <HorizontalSearchRow data={rankedData} ranked page={page} />
+            <HorizontalSearchRow data={data[4]} ranked page={page} />
           </div>
           <div className="hidden md:block lg:hidden">
-            <SearchRow data={rankedData} ranked />
+            <SearchRow data={data[4]} ranked />
           </div>
         </SearchResults>
       </div>
