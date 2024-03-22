@@ -49,10 +49,64 @@ export interface Anime {
   season: string;
 }
 
+export interface Manga {
+  title: {
+    romaji: string;
+    english: string;
+  };
+  coverImage: {
+    extraLarge: string;
+    color: string;
+  };
+  rankings: [
+    {
+      rank: number;
+      type: string;
+      allTime: boolean;
+    }
+  ];
+  startDate: {
+    year: number;
+  };
+  averageScore: number;
+  studios: {
+    edges: [
+      {
+        isMain: false;
+        node: {
+          name: string;
+        };
+      }
+    ];
+  };
+  format: string;
+  genres: string[];
+  popularity: number;
+  chapters: number;
+  status:
+    | "FINISHED"
+    | "RELEASING"
+    | "NOT_YET_RELEASED"
+    | "CANCELLED"
+    | "HIATUS";
+  endDate: {
+    year: number;
+    month: number;
+  };
+}
+
 export interface TrendingAnimeResponseData {
   data: {
     Page: {
       media: Anime[];
+    };
+  };
+}
+
+export interface TrendingMangaResponseData {
+  data: {
+    Page: {
+      media: Manga[];
     };
   };
 }
@@ -68,6 +122,10 @@ const queryStart = `
 query {
   Page(page: 1, perPage: 6) {
     `;
+const queryStart100 = `
+query {
+  Page(page: 1, perPage: 10) {
+`;
 const animeQuery = `
      {
       title {
@@ -111,6 +169,40 @@ const animeQuery = `
 }
 `;
 
+const mangaQuery = `
+{
+title {
+  romaji
+  english
+}
+coverImage {
+  extraLarge
+  color
+}
+rankings {
+  rank
+  type
+  allTime
+}
+startDate {
+  year
+}
+averageScore
+format
+genres
+popularity
+chapters
+status
+endDate {
+  year
+  month
+}
+}
+}
+}
+
+`;
+
 const optionsFormatter = (query: string): RequestInit => {
   const options: RequestInit = {
     method: "POST",
@@ -133,6 +225,14 @@ function handleResponse(
   });
 }
 
+function handleResponseManga(
+  response: Response
+): Promise<TrendingMangaResponseData> {
+  return response.json().then(function (json) {
+    return response.ok ? json : Promise.reject(json);
+  });
+}
+
 function handleError(error: ErrorResponseData) {
   console.error(error);
 }
@@ -146,6 +246,19 @@ export const TrendingAnimeFunction = async () => {
 
   const data = await fetch(url, options)
     .then(handleResponse)
+    .catch(handleError);
+  return data;
+};
+
+export const TrendingMangaFunction = async () => {
+  const query =
+    queryStart +
+    "media(sort: TRENDING_DESC, type: MANGA, isAdult: false)" +
+    mangaQuery;
+  const options = optionsFormatter(query);
+
+  const data = await fetch(url, options)
+    .then(handleResponseManga)
     .catch(handleError);
   return data;
 };
@@ -189,15 +302,54 @@ export const AllTime = async () => {
   return data;
 };
 
-export const Top100 = async () => {
+export const AllTimeManga = async () => {
   const query =
     queryStart +
-    "media(type:ANIME, isAdult:false, sort:SCORE_DESC)" +
+    "media(type:MANGA, isAdult:false, sort:POPULARITY_DESC)" +
+    mangaQuery;
+  const options = optionsFormatter(query);
+
+  const data = await fetch(url, options)
+    .then(handleResponseManga)
+    .catch(handleError);
+  return data;
+};
+
+export const PopularManhwa = async () => {
+  const query =
+    queryStart +
+    "media(sort: POPULARITY_DESC, type: MANGA, isAdult: false, countryOfOrigin:KR)" +
+    mangaQuery;
+  const options = optionsFormatter(query);
+
+  const data = await fetch(url, options)
+    .then(handleResponseManga)
+    .catch(handleError);
+  return data;
+};
+
+export const Top100 = async () => {
+  const query =
+    queryStart100 +
+    "media(type:ANIME, isAdult:false, sort:SCORE_DESC, format:TV)" +
     animeQuery;
   const options = optionsFormatter(query);
 
   const data = await fetch(url, options)
     .then(handleResponse)
+    .catch(handleError);
+  return data;
+};
+
+export const Top100Manga = async () => {
+  const query =
+    queryStart100 +
+    "media(type:MANGA, isAdult:false, sort:SCORE_DESC)" +
+    mangaQuery;
+  const options = optionsFormatter(query);
+
+  const data = await fetch(url, options)
+    .then(handleResponseManga)
     .catch(handleError);
   return data;
 };

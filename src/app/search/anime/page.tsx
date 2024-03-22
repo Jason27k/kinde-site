@@ -1,12 +1,7 @@
-import SearchFilters from "@/components/Search/SearchFilters";
-import React from "react";
+import SearchAnime from "@/components/Search/SearchAnime";
 
 const page = () => {
-  return (
-    <div>
-      <SearchFilters currentCategory="Anime" />
-    </div>
-  );
+  return <SearchAnime />;
 };
 
 export default page;

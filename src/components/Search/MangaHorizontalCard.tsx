@@ -1,27 +1,34 @@
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
+import { Card, CardBody } from "@nextui-org/react";
 import Image from "next/image";
 import { Smile, Hash } from "lucide-react";
 import Link from "next/link";
-import { Anime } from "@/app/actions";
+import { Manga } from "@/app/actions";
+import { cn } from "@/lib/utils";
 
 interface Props {
   ranked?: boolean;
 }
 
-const HorizontalCard = ({
-  coverImage,
+const MangaHorizontalCard = ({
   title,
-  genres,
-  averageScore,
-  popularity,
-  format,
-  duration,
-  startDate,
-  nextAiringEpisode,
-  ranked,
+  coverImage,
   rankings,
-  season,
-}: Props & Anime) => {
+  startDate,
+  averageScore,
+  format,
+  genres,
+  popularity,
+  chapters,
+  status,
+  endDate,
+  ranked,
+}: Props & Manga) => {
+  const finalText =
+    status === "RELEASING"
+      ? `Publishing Since ${startDate.year}`
+      : status === "FINISHED"
+      ? `${startDate.year} - ${endDate.year}`
+      : `${startDate.year}`;
   return (
     <div className="hidden lg:flex w-full h-[80px] gap-2">
       <div className="flex items-center w-[50px] h-50px] justify-center font-bold">
@@ -56,10 +63,10 @@ const HorizontalCard = ({
                   <div className="flex gap-2 max-h-[24px] overflow-hidden">
                     {genres.slice(0, 4).map((genre) => (
                       <div
-                        className="bg-[#ef5d5d] rounded-lg px-3 py-[2px]"
+                        className={cn(`rounded-lg px-3 py-[2px]`)}
                         key={genre}
                       >
-                        <Link href={`/search/anime?genre=${genre}`}>
+                        <Link href={`/search/manga?genre=${genre}`}>
                           <p className="text-[12px]">{genre.toLowerCase()}</p>
                         </Link>
                       </div>
@@ -76,14 +83,12 @@ const HorizontalCard = ({
                   </div>
                   <div className="flex flex-col w-[130px] text-sm justify-center">
                     <p>{format}</p>
-                    <p className="text-[12px]">{duration} </p>
+                    {chapters && <p>{chapters} Chapters</p>}
                   </div>
                   <div className="flex flex-col w-[130px] text-sm justify-center">
-                    <p>{season + " " + startDate.year}</p>
+                    <p>{finalText}</p>
                     <p className="text-[12px]">
-                      {nextAiringEpisode !== null
-                        ? nextAiringEpisode.airingAt
-                        : "Finished Airing"}{" "}
+                      {status.slice(0, 1) + status.slice(1).toLowerCase()}
                     </p>
                   </div>
                 </div>
@@ -96,4 +101,4 @@ const HorizontalCard = ({
   );
 };
 
-export default HorizontalCard;
+export default MangaHorizontalCard;

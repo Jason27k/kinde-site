@@ -11,13 +11,13 @@ import SearchSelect from "./SearchSelect";
 import SearchInputsRow from "./SearchInputsRow";
 import SearchDropDown from "./SearchDropDown";
 import MangaSearchDropDown from "./MangaSearchDropDown";
-import { Anime } from "@/app/actions";
+import { Anime, Manga } from "@/app/actions";
 import SearchRow from "./SearchRow";
 import HorizontalSearchRow from "./HorizontalSearchRow";
 
 interface Props {
   currentCategory: string;
-  data: Anime[][];
+  data: (Anime[] | Manga[])[];
 }
 
 const SearchFilters = ({ currentCategory, data }: Props) => {
@@ -27,7 +27,7 @@ const SearchFilters = ({ currentCategory, data }: Props) => {
     setIsClicked((isClicked) => (isClicked = !isClicked));
   };
 
-  const page = currentCategory.toLowerCase();
+  const page = currentCategory.toLowerCase() as "anime" | "manga";
 
   return (
     <div className="flex flex-col gap-4 overflow-scroll no-scrollbar min-w-[405px] w-screen md:w-[90vw] lg:w-[85vw] xl:w-[75vw] max-w-[1200px] mx-auto p-4">
@@ -88,27 +88,42 @@ const SearchFilters = ({ currentCategory, data }: Props) => {
       </div>
       <div className="flex flex-col gap-4">
         <SearchResults title="Trending" page={"/search/" + page + "/trending"}>
-          <SearchRow data={data[0]} />
+          <SearchRow data={data[0]} page={page} />
         </SearchResults>
-        {currentCategory === "Anime" && (
+        {currentCategory === "Anime" ? (
           <>
             <SearchResults
               title="Popular This Season"
               page={"/search/" + page + "/this-season"}
             >
-              <SearchRow data={data[1]} />
+              <SearchRow data={data[1]} page={page} />
             </SearchResults>
             <SearchResults
               title="Upcoming Next Season"
               page={"/search/" + page + "/next-season"}
             >
-              <SearchRow data={data[2]} />
+              <SearchRow data={data[2]} page={page} />
             </SearchResults>
             <SearchResults
               title="All Time Popular"
               page={"/search/" + page + "/popular"}
             >
-              <SearchRow data={data[3]} />
+              <SearchRow data={data[3]} page={page} />
+            </SearchResults>
+          </>
+        ) : (
+          <>
+            <SearchResults
+              title="All Time Popular"
+              page={"/search/" + page + "/popular"}
+            >
+              <SearchRow data={data[1]} page={page} />
+            </SearchResults>
+            <SearchResults
+              title="Popular Manhwa"
+              page={"/search/" + page + "/top-manhwa"}
+            >
+              <SearchRow data={data[2]} page={page} />
             </SearchResults>
           </>
         )}
@@ -120,10 +135,18 @@ const SearchFilters = ({ currentCategory, data }: Props) => {
           className="hidden md:block"
         >
           <div className="hidden lg:flex flex-col gap-6">
-            <HorizontalSearchRow data={data[4]} ranked page={page} />
+            <HorizontalSearchRow
+              data={currentCategory === "Anime" ? data[4] : data[3]}
+              ranked
+              page={page}
+            />
           </div>
           <div className="hidden md:block lg:hidden">
-            <SearchRow data={data[4]} ranked />
+            <SearchRow
+              data={currentCategory === "Anime" ? data[4] : data[3]}
+              ranked
+              page={page}
+            />
           </div>
         </SearchResults>
       </div>

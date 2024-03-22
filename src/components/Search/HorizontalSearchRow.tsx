@@ -1,20 +1,33 @@
 import HorizontalCard from "./HorizontalCard";
-import { Anime } from "@/app/actions";
+import { Anime, Manga } from "@/app/actions";
+import MangaHorizontalCard from "./MangaHorizontalCard";
 
 interface SearchRowProps {
-  data: Anime[];
+  data: Anime[] | Manga[];
   ranked?: boolean;
-  page: string;
+  page: "anime" | "manga";
 }
 
 const HorizontalSearchRow = ({ data, ranked, page }: SearchRowProps) => {
   return (
     <>
-      {data.map((item, index) => {
-        return (
-          <HorizontalCard key={index} {...item} ranked={ranked} page={page} />
-        );
-      })}
+      {page === "anime" ? (
+        <>
+          {data.map((item, index) => (
+            <HorizontalCard key={index} {...(item as Anime)} ranked={ranked} />
+          ))}
+        </>
+      ) : (
+        <>
+          {data.map((item, index) => (
+            <MangaHorizontalCard
+              key={index}
+              {...(item as Manga)}
+              ranked={ranked}
+            />
+          ))}
+        </>
+      )}
     </>
   );
 };

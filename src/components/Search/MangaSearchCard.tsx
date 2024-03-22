@@ -9,25 +9,35 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Hash, Smile } from "lucide-react";
-import { Anime } from "@/app/actions";
+import { Manga } from "@/app/actions";
 
 export interface CardProps {
   className?: string;
   ranked?: boolean;
 }
 
-const SearchCard = ({
-  className,
-  ranked,
+const MangaSearchCard = ({
   title,
   coverImage,
   rankings,
-  nextAiringEpisode,
+  startDate,
   averageScore,
-  studios,
   format,
   genres,
-}: CardProps & Anime) => {
+  popularity,
+  chapters,
+  status,
+  endDate,
+  ranked,
+  className,
+}: CardProps & Manga) => {
+  const finalText =
+    status === "RELEASING"
+      ? `Publishing Since ${startDate.year}`
+      : status === "FINISHED"
+      ? `${startDate.year} - ${endDate.year}`
+      : `${startDate.year}`;
+
   return (
     <motion.div
       initial={{ scale: 0.8, opacity: 0, backgroundColor: "gray" }}
@@ -74,19 +84,13 @@ const SearchCard = ({
               <HoverCardContent>
                 <div className="flex flex-col items-start justify-center gap-3 text-sm">
                   <div className="flex justify-between w-full gap-3">
-                    <p className="text-wrap w-full">
-                      {nextAiringEpisode !== null
-                        ? `${nextAiringEpisode.episode} 
-                    airing at ${nextAiringEpisode.airingAt} at ${nextAiringEpisode.timeUntilAiring}`
-                        : "Finished Airing"}
-                    </p>
+                    <p className="text-wrap w-full">{finalText}</p>
                     <div className="flex-1 w-full flex items-center gap-2">
                       <Smile />
                       <div className="">{averageScore}</div>
                     </div>
                   </div>
                   <div className="flex flex-col">
-                    <div className="">{studios.edges[0].node.name}</div>
                     <div className="">{format}</div>
                   </div>
                   <div className="flex">
@@ -127,4 +131,4 @@ const SearchCard = ({
   );
 };
 
-export default SearchCard;
+export default MangaSearchCard;
